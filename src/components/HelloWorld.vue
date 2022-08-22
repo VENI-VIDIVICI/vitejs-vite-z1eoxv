@@ -1,15 +1,16 @@
 <template>
   <a-select
     v-model:value="value"
-    style="width: 300px"
+    :getPopupContainer="getPopupContainer"
+    style="width: 200px"
     :options="items.map(item => ({ value: item }))"
   >
     <template #dropdownRender="{ menuNode: menu }">
       <!-- <v-nodes :vnodes="menu" /> -->
      <s-table
         :columns="columns"
-        :scroll="{ y: 200, x:100 }"
         :pagination="false"
+        :scroll="{y:200}"
         :data-source="dataSource"
         :rowKey="name"
       ></s-table>
@@ -49,12 +50,14 @@ export default defineComponent({
       console.log('addItem');
       items.value.push(`New item ${index++}`);
     };
+    const getPopupContainer = () => document.body
     return {
       items,
       value,
       addItem,
       dataSource,
-      columns
+      columns,
+      getPopupContainer
     };
   },
 });
