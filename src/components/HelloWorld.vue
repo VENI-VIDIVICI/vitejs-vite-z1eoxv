@@ -10,7 +10,7 @@
      <s-table
         :columns="columns"
         :pagination="false"
-        :scroll="{y:200}"
+        :scroll="{ y: 100, x: 200 }"
         :data-source="dataSource"
         :rowKey="name"
       ></s-table>
