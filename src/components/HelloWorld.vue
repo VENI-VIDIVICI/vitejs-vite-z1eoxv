@@ -32,12 +32,12 @@ export default defineComponent({
     const items = ref(['jack', 'lucy']);
     const value = ref('lucy');
     const dataSource = [
-      {name:'jack'},
-      {name:'lucy1'},
-      {name:'lucy2'},
-      {name:'lucy3'},
-      {name:'lucy4'},
-      {name:'lucy5'},
+      {name:'jack',key:1},
+      {name:'lucy1',key:2},
+      {name:'lucy2',key:3},
+      {name:'lucy3',key:4},
+      {name:'lucy4',key:5},
+      {name:'lucy5',key:6},
     ]
     const columns = [
       {
