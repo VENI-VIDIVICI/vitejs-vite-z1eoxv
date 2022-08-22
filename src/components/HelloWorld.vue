@@ -1,61 +1,60 @@
 <template>
-  <s-table
-    :columns="columns"
-    :scroll="{ y: 400 }"
-    :pagination="false"
-    :data-source="dataSource"
-  ></s-table>
+  <a-select
+    v-model:value="value"
+    style="width: 300px"
+    :options="items.map(item => ({ value: item }))"
+  >
+    <template #dropdownRender="{ menuNode: menu }">
+      <!-- <v-nodes :vnodes="menu" /> -->
+     <s-table
+        :columns="columns"
+        :scroll="{ y: 200, x:100 }"
+        :pagination="false"
+        :data-source="dataSource"
+        :rowKey="name"
+      ></s-table>
+    </template>
+  </a-select>
 </template>
 <script lang="ts">
+import { PlusOutlined } from '@ant-design/icons-vue';
 import { defineComponent, ref } from 'vue';
 
-interface DataItem {
-  key: number;
-  name: string;
-  age: number;
-  address: string;
-}
-
+let index = 0;
 export default defineComponent({
+  components: {
+    PlusOutlined,
+    VNodes: (_, { attrs }) => {
+      return attrs.vnodes;
+    },
+  },
   setup() {
+    const items = ref(['jack', 'lucy']);
+    const value = ref('lucy');
+    const dataSource = [
+      {name:'jack'},
+      {name:'lucy1'},
+      {name:'lucy2'},
+      {name:'lucy3'},
+      {name:'lucy4'},
+      {name:'lucy5'},
+    ]
     const columns = [
       {
         title: 'Full Name',
         dataIndex: 'name',
       },
-      {
-        title: 'Age',
-        dataIndex: 'age',
-      },
-      {
-        title: 'Column 1',
-        dataIndex: 'address',
-      },
-      {
-        title: 'Column 2',
-        dataIndex: 'address',
-      },
-      {
-        title: 'Column 3',
-        dataIndex: 'address',
-      },
-      {
-        title: 'Column 4',
-        dataIndex: 'address',
-      },
-      { title: 'Column 5', dataIndex: 'address' },
-    ];
-    const data: DataItem[] = [];
-    for (let i = 0; i < 1000; i++) {
-      data.push({
-        name: `Edrward ${i}`,
-        age: i + 1,
-        address: `London Park no. ${i}`,
-      });
-    }
+    ]
+    const addItem = () => {
+      console.log('addItem');
+      items.value.push(`New item ${index++}`);
+    };
     return {
-      dataSource: ref(data),
-      columns: ref(columns),
+      items,
+      value,
+      addItem,
+      dataSource,
+      columns
     };
   },
 });
